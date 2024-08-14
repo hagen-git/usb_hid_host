@@ -12,9 +12,9 @@ module hid_printer (
     input signed [7:0] mouse_dy,
     input game_l, game_r, game_u, game_d,
     input game_a, game_b, game_x, game_y, 
-    input game_sel, game_sta
-
-//  , input [63:0] hid_report
+    input game_sel, game_sta, 
+    input dbg_connected,
+    input [63:0] dbg_hid_report
 );
 
 
@@ -40,7 +40,7 @@ reg [9:0] game_btns_r;
 wire [9:0] game_btns = {game_l, game_r, game_u, game_d, game_a, game_b, 
                         game_x, game_y, game_sel, game_sta};
 
-//reg [22:0] cnt; // print raw reports
+reg [22:0] cnt; // print raw reports
 
 always @(posedge clk) begin
     if (~resetn) begin
@@ -56,7 +56,7 @@ always @(posedge clk) begin
             timer <= ((timer + 1) & 20'hfffff);
 
         // print raw reports
-//        cnt <= ((cnt + 1) & 23'h7fffff);
+        cnt <= ((cnt + 1) & 23'h7fffff);
 
         // Simple ways to handle HID inputs
         if (usb_report) begin
@@ -124,15 +124,15 @@ always @(posedge clk) begin
         endcase // usb_type
 
         // print raw reports
-//        if (cnt[22:20] == 3'b100) begin
-//            case (cnt[19:0])
-//            20'h00000: `print("Last USB HID report: ", STR);
-//            20'h10000: `print(hid_report, 8); 
-//            20'h20000: `print(", type=", STR); 
-//            20'h30000: `print({6'b0, usb_type}, HEX); 
-//            20'h40000: `print("\x0d\x0a", STR); 
-//            endcase
-//        end
+        if (dbg_connected && cnt[22:20] == 3'b100) begin
+            case (cnt[19:0])
+            20'h00000: `print("Last USB HID report: ", STR);
+            20'h10000: `print(dbg_hid_report, 8); 
+            20'h20000: `print(", type=", STR); 
+            20'h30000: `print({6'b0, usb_type}, HEX); 
+            20'h40000: `print("\x0d\x0a", STR); 
+            endcase
+        end
 
     end // resetn not active
 end

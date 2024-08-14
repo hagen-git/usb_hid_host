@@ -139,6 +139,135 @@ Data (HexDump)           : 1A 03 55 00 53 00 42 00 20 00 4B 00 65 00 79 00   ..U
 
 ----
 
+# Semico TMKB T68SE
+
+````text
+    ---------------------- Device Descriptor ----------------------
+bLength                  : 0x12 (18 bytes)
+bDescriptorType          : 0x01 (Device Descriptor)
+bcdUSB                   : 0x110 (USB Version 1.1)
+bDeviceClass             : 0x00 (defined by the interface descriptors)
+bDeviceSubClass          : 0x00
+bDeviceProtocol          : 0x00
+bMaxPacketSize0          : 0x08 (8 bytes)
+idVendor                 : 0x1A2C (Wuxi China Resources Semico Co., Ltd.)
+idProduct                : 0x9C05
+bcdDevice                : 0x0110
+iManufacturer            : 0x01 (String Descriptor 1)
+ Language 0x0409         : "SEMICO  "
+iProduct                 : 0x02 (String Descriptor 2)
+ Language 0x0409         : "TMKB T68SE  "
+iSerialNumber            : 0x00 (No String Descriptor)
+bNumConfigurations       : 0x01 (1 Configuration)
+Data (HexDump)           : 12 01 10 01 00 00 00 08 2C 1A 05 9C 10 01 01 02   ........,.......
+                           00 01                                             ..
+
+    ------------------ Configuration Descriptor -------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x02 (Configuration Descriptor)
+wTotalLength             : 0x003B (59 bytes)
+bNumInterfaces           : 0x02 (2 Interfaces)
+bConfigurationValue      : 0x01 (Configuration 1)
+iConfiguration           : 0x00 (No String Descriptor)
+bmAttributes             : 0xA0
+ D7: Reserved, set 1     : 0x01
+ D6: Self Powered        : 0x00 (no)
+ D5: Remote Wakeup       : 0x01 (yes)
+ D4..0: Reserved, set 0  : 0x00
+MaxPower                 : 0x32 (100 mA)
+Data (HexDump)           : 09 02 3B 00 02 01 00 A0 32 09 04 00 00 01 03 01   ..;.....2.......
+                           01 00 09 21 10 01 00 01 22 41 00 07 05 81 03 08   ...!...."A......
+                           00 0A 09 04 01 00 01 03 01 02 00 09 21 10 01 00   ............!...
+                           01 22 CD 00 07 05 82 03 08 00 0A                  .".........
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x00 (Interface 0)
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x01 (1 Endpoint)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x01 (Boot Interface)
+bInterfaceProtocol       : 0x01 (Keyboard)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 00 00 01 03 01 01 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0110 (HID Version 1.10)
+bCountryCode             : 0x00 (00 = not localized)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 10 01 00 01 22 41 00                        .!...."A.
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x0041 (65 bytes)
+Error reading descriptor : ok (due to a obscure limitation of the Win32 USB API, see F1 Help)
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x81 (Direction=IN EndpointID=1)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0008
+bInterval                : 0x0A (10 ms)
+Data (HexDump)           : 07 05 81 03 08 00 0A                              .......
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x01 (Interface 1)
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x01 (1 Endpoint)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x01 (Boot Interface)
+bInterfaceProtocol       : 0x02 (Mouse)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 01 00 01 03 01 02 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0110 (HID Version 1.10)
+bCountryCode             : 0x00 (00 = not localized)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 10 01 00 01 22 CD 00                        .!...."..
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x00CD (205 bytes)
+Error reading descriptor : ok (due to a obscure limitation of the Win32 USB API, see F1 Help)
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x82 (Direction=IN EndpointID=2)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0008
+bInterval                : 0x0A (10 ms)
+Data (HexDump)           : 07 05 82 03 08 00 0A                              .......
+
+      -------------------- String Descriptors -------------------
+             ------ String Descriptor 0 ------
+bLength                  : 0x04 (4 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language ID[0]           : 0x0409 (English - United States)
+Data (HexDump)           : 04 03 09 04                                       ....
+             ------ String Descriptor 1 ------
+bLength                  : 0x12 (18 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "SEMICO  "  *!*CAUTION  trailing space characters
+Data (HexDump)           : 12 03 53 00 45 00 4D 00 49 00 43 00 4F 00 20 00   ..S.E.M.I.C.O. .
+                           20 00                                              .
+             ------ String Descriptor 2 ------
+bLength                  : 0x1A (26 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "TMKB T68SE  "  *!*CAUTION  trailing space characters
+Data (HexDump)           : 1A 03 54 00 4D 00 4B 00 42 00 20 00 54 00 36 00   ..T.M.K.B. .T.6.
+                           38 00 53 00 45 00 20 00 20 00                     8.S.E. . .
+````
+
+----
+
 # BEENIE Mouse (red, OK)
 
 * works

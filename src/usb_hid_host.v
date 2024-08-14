@@ -28,6 +28,7 @@ module usb_hid_host (
     output reg game_l, game_r, game_u, game_d,  // left right up down
     output reg game_a, game_b, game_x, game_y, game_sel, game_sta,  // buttons
     // debug
+    output dbg_connected,
     output [63:0] dbg_hid_report	// last HID report
 );
 
@@ -50,6 +51,7 @@ reg  [3:0] rcvct;		// counter for recv data
 reg  data_strobe_r, data_rdy_r;	// delayed data_strobe and data_rdy
 reg  [7:0] dat[8];		// data in last response
 assign dbg_hid_report = {dat[7], dat[6], dat[5], dat[4], dat[3], dat[2], dat[1], dat[0]};
+assign dbg_connected  = connected;
 // assign dbg_regs = regs;
 
 localparam TYP_NONE = 2'b00;
