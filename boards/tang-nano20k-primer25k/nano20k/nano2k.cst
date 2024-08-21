@@ -20,9 +20,10 @@
    IO_PORT "UART_TXD" IO_TYPE=LVCMOS33;
 
 // Extra USB full speed port (12MHz)
-   IO_LOC  "usbdp" 41;      // D+      
+// D+ 41->73, D- 42->74
+   IO_LOC  "usbdp" 73;
    IO_PORT "usbdp" PULL_MODE=NONE IO_TYPE=LVCMOS33;
-   IO_LOC  "usbdm" 42;      // D-
+   IO_LOC  "usbdm" 74;
    IO_PORT "usbdm" PULL_MODE=NONE IO_TYPE=LVCMOS33;
 
 // Six LEDs for debugging and status display

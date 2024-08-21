@@ -26,7 +26,9 @@ module usb_hid_host (
     output reg signed [7:0] mouse_dy,      // signed 8-bit, cleared after `report` pulse
     // gamepad 
     output reg game_l, game_r, game_u, game_d,  // left right up down
-    output reg game_a, game_b, game_x, game_y, game_sel, game_sta,  // buttons
+    output reg game_a, game_b, game_x, game_y,  // AB and XY buttons
+    output reg game_sel, game_sta,              // select and start
+    output reg game_shl, game_shr,              // shoulder buttons left and right
     // debug
     output dbg_connected,
     output [63:0] dbg_hid_report	// last HID report
@@ -101,7 +103,9 @@ always @(posedge usbclk) begin : process_in_data
                 // - d[6][5:4] is buttons START,SELECT
                 // Variations:
                 // - Some gamepads uses d[0] and d[1] for X and Y axis.
-                // - Some transmits a different set when d[0][1:0] is 2 (a dualshock adapater)
+                // - Some transmits a different set when d[0][1:0] is 2 (a dualshock adapter)
+                // - AliExpress gamepad has shoulder buttons:
+                //   - d[6][1:0] is shoulder buttons [0]left and [1]right
                 case (rcvct)
                 0: begin
                     if (ukpdat[1:0] != 2'b10) begin
@@ -125,15 +129,14 @@ always @(posedge usbclk) begin : process_in_data
                     if (ukpdat[7:6]==2'b00) {game_u, game_d} <= 2'b10;
                     if (ukpdat[7:6]==2'b11) {game_u, game_d} <= 2'b01;
                 end
-                5: if (valid) begin
-                    game_x <= ukpdat[4];
-                    game_a <= ukpdat[5];
-                    game_b <= ukpdat[6];
-                    game_y <= ukpdat[7];
-                end
-                6: if (valid) begin
-                    game_sel <= ukpdat[4];
-                    game_sta <= ukpdat[5];
+                5:  if (valid) begin
+                        { game_y, game_b, game_a, game_x } <= ukpdat[7:4];
+                    end
+                6:  begin 
+                    if (valid) begin 
+                        { game_sta, game_sel } <= ukpdat[5:4]; 
+                        { game_shr, game_shl } <= ukpdat[1:0]; 
+                    end
                 end
                 endcase
                 // TODO: add any special handling if needed 

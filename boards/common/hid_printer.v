@@ -12,9 +12,11 @@ module hid_printer (
     input signed [7:0] mouse_dy,
     input game_l, game_r, game_u, game_d,
     input game_a, game_b, game_x, game_y, 
-    input game_sel, game_sta, 
+    input game_sel, game_sta,
+    input game_shl, game_shr,
     input dbg_connected,
-    input [63:0] dbg_hid_report
+    input [63:0] dbg_hid_report,
+    input dbg_active
 );
 
 
@@ -36,9 +38,9 @@ reg [7:0] key_active[2];
 reg [7:0] keydown;                  // scancode of key just pressed
 reg [7:0] keyascii;                 // ascii of key just pressed
 
-reg [9:0] game_btns_r;
-wire [9:0] game_btns = {game_l, game_r, game_u, game_d, game_a, game_b, 
-                        game_x, game_y, game_sel, game_sta};
+reg  [11:0] game_btns_r;
+wire [11:0] game_btns = {game_l, game_r, game_u, game_d, game_a, game_b, 
+                         game_x, game_y, game_sel, game_sta, game_shl, game_shr};
 
 reg [22:0] cnt; // print raw reports
 
@@ -119,12 +121,14 @@ always @(posedge clk) begin
            20'h80000: `print(game_y ? " Y" : " _", STR);
            20'h90000: `print(game_sel ? " SE" : " __", STR);
            20'ha0000: `print(game_sta ? " ST" : " __", STR);
-           20'hb0000: `print("\x0d\x0a", STR);
+           20'hb0000: `print(game_shl ? " sL" : " __", STR);
+           20'hc0000: `print(game_shr ? " sR" : " __", STR);
+           20'hd0000: `print("\x0d\x0a", STR);
            endcase
         endcase // usb_type
 
         // print raw reports
-        if (dbg_connected && cnt[22:20] == 3'b100) begin
+        if (dbg_active && dbg_connected && cnt[22:20] == 3'b100) begin
             case (cnt[19:0])
             20'h00000: `print("Last USB HID report: ", STR);
             20'h10000: `print(dbg_hid_report, 8); 

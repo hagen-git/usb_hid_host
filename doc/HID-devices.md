@@ -711,10 +711,9 @@ Data (HexDump)           : 2E 03 20 00 55 00 53 00 42 00 20 00 4F 00 50 00   .. 
 
 ## Gamepad from Totsu Engineering
 
-* MrZone Store  (AliExpress) "2PCs USB Gamepad Retro Gaming Joystick Wired Controller for PC NESPi RetroPie Game Control for Raspberry Pi 4 B"
-* Tests OK on PC
-
-> **not tested (yet)**
+* MrZone Store (AliExpress) "2PCs USB Gamepad Retro Gaming Joystick Wired Controller for PC NESPi RetroPie Game Control for Raspberry Pi 4 B"
+* works
+* has two additional shoulder buttons (d6[1:0]==shoulder right, left)
 
 ```text
     ---------------------- Device Descriptor ----------------------

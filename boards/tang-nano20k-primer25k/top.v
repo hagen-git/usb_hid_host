@@ -40,11 +40,21 @@ gowin_pll_usb pll_usb (
 );
 
 wire [1:0] usb_type;
+wire usb_report, usb_conerr; 
 wire [7:0] key_modifiers, key1, key2, key3, key4;
 wire [7:0] mouse_btn;
 wire signed [7:0] mouse_dx, mouse_dy;
-wire [63:0] hid_report;
+wire game_l, game_r, game_u, game_d;
+wire game_a, game_b, game_x, game_y;
+wire game_select, game_start;
+wire game_shl, game_shr;
 wire connected;
+wire [63:0] hid_report;
+reg dbg_active;
+
+initial dbg_active = 0;
+always @(posedge s1) dbg_active <= ~dbg_active;
+
 
 usb_hid_host usb (
     .usbclk(clk_usb), .usbrst_n(sys_resetn),
@@ -54,7 +64,8 @@ usb_hid_host usb (
     .mouse_btn(mouse_btn), .mouse_dx(mouse_dx), .mouse_dy(mouse_dy),
     .game_l(game_l), .game_r(game_r), .game_u(game_u), .game_d(game_d),
     .game_a(game_a), .game_b(game_b), .game_x(game_x), .game_y(game_y), 
-    .game_sel(game_sel), .game_sta(game_sta),
+    .game_sel(game_select), .game_sta(game_start),
+    .game_shl(game_shl), .game_shr(game_shr),
     .dbg_connected(connected), .dbg_hid_report(hid_report)
 );
 
@@ -65,8 +76,9 @@ hid_printer prt (
     .mouse_btn(mouse_btn), .mouse_dx(mouse_dx), .mouse_dy(mouse_dy),
     .game_l(game_l), .game_r(game_r), .game_u(game_u), .game_d(game_d),
     .game_a(game_a), .game_b(game_b), .game_x(game_x), .game_y(game_y), 
-    .game_sel(game_sel), .game_sta(game_sta),
-    .dbg_connected(connected), .dbg_hid_report(hid_report)
+    .game_sel(game_select), .game_sta(game_start),
+    .game_shl(game_shl), .game_shr(game_shr),
+    .dbg_connected(connected), .dbg_hid_report(hid_report), .dbg_active(dbg_active)
 );
 
 reg report_toggle;      // blinks whenever there's a report
