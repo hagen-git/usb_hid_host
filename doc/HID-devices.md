@@ -139,7 +139,7 @@ Data (HexDump)           : 1A 03 55 00 53 00 42 00 20 00 4B 00 65 00 79 00   ..U
 
 ----
 
-# Semico TMKB T68SE
+## Semico TMKB T68SE
 
 ````text
     ---------------------- Device Descriptor ----------------------
@@ -268,7 +268,7 @@ Data (HexDump)           : 1A 03 54 00 4D 00 4B 00 42 00 20 00 54 00 36 00   ..T
 
 ----
 
-# BEENIE Mouse (red, OK)
+## BEENIE Mouse (red, OK)
 
 * works
 * mouse_y does not seem to increase, only to reduce -> check datagrams
@@ -407,7 +407,7 @@ Data (HexDump)           : 26 03 55 00 53 00 42 00 20 00 4F 00 50 00 54 00   &.U
 
 ----
 
-# Speedlink Black Widow (SL-6640)
+## Speedlink Black Widow (SL-6640)
 
 * works
 * mapping of datagrams seems not to be correct
@@ -570,7 +570,7 @@ Data (HexDump)           : 2A 03 55 00 53 00 42 00 20 00 47 00 61 00 6D 00   *.U
 
 ----
 
-# maxxter mouse (probably broken)
+## maxxter mouse (probably broken)
 
 * works
 * datagrams look odd
@@ -709,7 +709,155 @@ Data (HexDump)           : 2E 03 20 00 55 00 53 00 42 00 20 00 4F 00 50 00   .. 
 
 ----
 
-# Logitech Receiver for K400+
+## Gamepad from Totsu Engineering
+
+* MrZone Store  (AliExpress) "2PCs USB Gamepad Retro Gaming Joystick Wired Controller for PC NESPi RetroPie Game Control for Raspberry Pi 4 B"
+* Tests OK on PC
+
+> **not tested (yet)**
+
+```text
+    ---------------------- Device Descriptor ----------------------
+bLength                  : 0x12 (18 bytes)
+bDescriptorType          : 0x01 (Device Descriptor)
+bcdUSB                   : 0x100 (USB Version 1.0)
+bDeviceClass             : 0x00 (defined by the interface descriptors)
+bDeviceSubClass          : 0x00
+bDeviceProtocol          : 0x00
+bMaxPacketSize0          : 0x08 (8 bytes)
+idVendor                 : 0x081F (Totsu Engineering, Inc.)
+idProduct                : 0xE401
+bcdDevice                : 0x0106
+iManufacturer            : 0x00 (No String Descriptor)
+iProduct                 : 0x02 (String Descriptor 2)
+ Language 0x0409         : "USB gamepad           "
+iSerialNumber            : 0x00 (No String Descriptor)
+bNumConfigurations       : 0x01 (1 Configuration)
+Data (HexDump)           : 12 01 00 01 00 00 00 08 1F 08 01 E4 06 01 00 02   ................
+                           00 01                                             ..
+
+    ------------------ Configuration Descriptor -------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x02 (Configuration Descriptor)
+wTotalLength             : 0x0022 (34 bytes)
+bNumInterfaces           : 0x01 (1 Interface)
+bConfigurationValue      : 0x01 (Configuration 1)
+iConfiguration           : 0x00 (No String Descriptor)
+bmAttributes             : 0x80
+ D7: Bus Powered         : 0x01 (yes)
+ D6: Self Powered        : 0x00 (no)
+ D5: Remote Wakeup       : 0x00 (no)
+ D4..0: Reserved, set 0  : 0x00
+MaxPower                 : 0xFA (500 mA)
+Data (HexDump)           : 09 02 22 00 01 01 00 80 FA 09 04 00 00 01 03 00   ..".............
+                           00 00 09 21 10 01 21 01 22 62 00 07 05 81 03 08   ...!..!."b......
+                           00 0A                                             ..
+
+        ---------------- Interface Descriptor -----------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x04 (Interface Descriptor)
+bInterfaceNumber         : 0x00 (Interface 0)
+bAlternateSetting        : 0x00
+bNumEndpoints            : 0x01 (1 Endpoint)
+bInterfaceClass          : 0x03 (HID - Human Interface Device)
+bInterfaceSubClass       : 0x00 (None)
+bInterfaceProtocol       : 0x00 (None)
+iInterface               : 0x00 (No String Descriptor)
+Data (HexDump)           : 09 04 00 00 01 03 00 00 00                        .........
+
+        ------------------- HID Descriptor --------------------
+bLength                  : 0x09 (9 bytes)
+bDescriptorType          : 0x21 (HID Descriptor)
+bcdHID                   : 0x0110 (HID Version 1.10)
+bCountryCode             : 0x21 (33 = US)
+bNumDescriptors          : 0x01
+Data (HexDump)           : 09 21 10 01 21 01 22 62 00                        .!..!."b.
+Descriptor 1:
+bDescriptorType          : 0x22 (Class=Report)
+wDescriptorLength        : 0x0062 (98 bytes)
+  05 01             Usage Page (Generic Desktop Controls)
+  09 04             Usage (Joystick)
+  A1 01             Collection (Application)
+  A1 02               Collection (Logical)
+  75 08                 Report Size (8)
+  95 02                 Report Count (2)
+  15 00                 Logical Minimum (0)
+  26 FF 00              Logical Maximum (255)
+  35 00                 Physical Minimum (0)
+  46 FF 00              Physical Maximum (255)
+  09 30                 Usage (Direction-X)
+  09 31                 Usage (Direction-Y)
+  81 02                 Input (Var)
+  95 03                 Report Count (3)
+  81 01                 Input (Const)
+  75 01                 Report Size (1)
+  95 04                 Report Count (4)
+  15 00                 Logical Minimum (0)
+  25 01                 Logical Maximum (1)
+  35 00                 Physical Minimum (0)
+  45 01                 Physical Maximum (1)
+  81 01                 Input (Const)
+  65 00                 Unit (0x00)
+  75 01                 Report Size (1)
+  95 0A                 Report Count (10)
+  25 01                 Logical Maximum (1)
+  45 01                 Physical Maximum (1)
+  05 09                 Usage Page (Buttons)
+  19 01                 Usage Minimum (1)
+  29 0A                 Usage Maximum (10)
+  81 02                 Input (Var)
+  06 00 FF              Usage Page (Vendor Defined)
+  75 01                 Report Size (1)
+  95 0A                 Report Count (10)
+  25 01                 Logical Maximum (1)
+  45 01                 Physical Maximum (1)
+  09 01                 Usage (unk)
+  81 02                 Input (Var)
+  C0                  End Collection
+  A1 02               Collection (Logical)
+  75 08                 Report Size (8)
+  95 07                 Report Count (7)
+  46 FF 00              Physical Maximum (255)
+  26 FF 00              Logical Maximum (255)
+  09 02                 Usage (unk)
+  91 02                 Output (Var)
+  C0                  End Collection
+  C0                End Collection
+Data (HexDump)           : 05 01 09 04 A1 01 A1 02 75 08 95 02 15 00 26 FF   ........u.....&.
+                           00 35 00 46 FF 00 09 30 09 31 81 02 95 03 81 01   .5.F...0.1......
+                           75 01 95 04 15 00 25 01 35 00 45 01 81 01 65 00   u.....%.5.E...e.
+                           75 01 95 0A 25 01 45 01 05 09 19 01 29 0A 81 02   u...%.E.....)...
+                           06 00 FF 75 01 95 0A 25 01 45 01 09 01 81 02 C0   ...u...%.E......
+                           A1 02 75 08 95 07 46 FF 00 26 FF 00 09 02 91 02   ..u...F..&......
+                           C0 C0                                             ..
+
+        ----------------- Endpoint Descriptor -----------------
+bLength                  : 0x07 (7 bytes)
+bDescriptorType          : 0x05 (Endpoint Descriptor)
+bEndpointAddress         : 0x81 (Direction=IN EndpointID=1)
+bmAttributes             : 0x03 (TransferType=Interrupt)
+wMaxPacketSize           : 0x0008
+bInterval                : 0x0A (10 ms)
+Data (HexDump)           : 07 05 81 03 08 00 0A                              .......
+
+      -------------------- String Descriptors -------------------
+             ------ String Descriptor 0 ------
+bLength                  : 0x04 (4 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language ID[0]           : 0x0409 (English - United States)
+Data (HexDump)           : 04 03 09 04                                       ....
+             ------ String Descriptor 2 ------
+bLength                  : 0x2E (46 bytes)
+bDescriptorType          : 0x03 (String Descriptor)
+Language 0x0409          : "USB gamepad           "  *!*CAUTION  trailing space characters
+Data (HexDump)           : 2E 03 55 00 53 00 42 00 20 00 67 00 61 00 6D 00   ..U.S.B. .g.a.m.
+                           65 00 70 00 61 00 64 00 20 00 20 00 20 00 20 00   e.p.a.d. . . . .
+                           20 00 20 00 20 00 20 00 20 00 20 00 20 00          . . . . . . .
+```
+
+----
+
+## Logitech Receiver for K400+
 
 * does not work
 * descriptors look OK, but not USB1.1 compatible
@@ -883,7 +1031,7 @@ Data (HexDump)           : 1E 03 52 00 51 00 52 00 32 00 34 00 2E 00 31 00   ..R
 
 ----
 
-# Game controller (Lab31 LB-GA-GPVI01-B, XBOX compatible)
+## Game controller (Lab31 LB-GA-GPVI01-B, XBOX compatible)
 
 * does not work
 * descriptors look OK, but not USB1.1 compatible
@@ -973,7 +1121,9 @@ none
 ## Steam Controller (USB dongle, Valve Corp, FD553C1410, Model 1002)
 
 * According to UsbTreeView, the dongle only supports USB full speed.
-* Interesting: The first inteface descriptor is for a HID boot device/keyboard.
+* Interesting: The first interface descriptor is for a HID boot device/keyboard.
+
+> **not tested (yet)**
 
 ```text
     ---------------------- Device Descriptor ----------------------
