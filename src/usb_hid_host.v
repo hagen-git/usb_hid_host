@@ -241,16 +241,16 @@ module ukp (
     reg [6:0] bitadr = 0;				// 0~127
     reg [7:0] data = 0;					// received data
     reg [2:0] nrztxct, nrzrxct;			// NRZI trans/recv count for bit stuffing
-    wire interval_cy = interval == 12001;
+    wire interval_cy = (interval == 14'd12001); // interval carry (1ms wait completed)
     wire next = ~(state == S_OPCODE & (
-        inst ==2 & dmi |								// start
-        (inst==4 || inst==5) & timing != 0 |			// out0/hiz
-        inst ==13 & (~sample | (dpi | dmi) & wk != 1) |	// in 
-        inst ==14 & ~interval_cy						// wait
+        (inst == OP_START) & dmi |								    // start
+        ((inst == OP_OUT0) || (inst == OP_HIZ)) & (timing != 0) |	// out0/hiz
+        (inst == OP_IN)   & (~sample | (dpi | dmi) & wk != 1) |	    // in 
+        (inst == OP_WAIT) & ~interval_cy						    // wait
     ));
-    wire branch = state == S_B1 & cond;
-    wire retpc  = state == S_OPCODE && inst==7  ? 1 : 0;
-    wire jmppc  = state == S_OPCODE && inst==15 ? 1 : 0;
+    wire branch = ((state == S_B1) & cond);
+    wire retpc  = ((state == S_OPCODE) && (inst == OP_RET)) ? 1 : 0;
+    wire jmppc  = ((state == S_OPCODE) && (inst == OP_JMP)) ? 1 : 0;
     wire dbit   = sb[7-sadr[2:0]];
     wire record;
     reg  dmid;
@@ -285,7 +285,7 @@ module ukp (
                                 OP_DJNZ: cond <= wk != 1;
                             endcase
                         end
-                        if (inst == OP_DJNZ | inst == OP_IN & sample) wk <= wk - 8'd1;
+                        if ((inst == OP_DJNZ) || ((inst == OP_IN) & sample)) wk <= wk - 8'd1;
                         if (inst == OP_JMP) begin state <= S_B2; cond <= 1; end
                         if (inst == OP_TOGGLE) state <= S_TOGGLE0;
                     end
@@ -315,7 +315,7 @@ module ukp (
                 if (mbit==0) begin 
                     if (jmppc) wpc <= ((pc + 4) & 14'h3fff);
                     if (next | branch | retpc) begin
-                        if(retpc) pc <= wpc;					// ret
+                        if (retpc) pc <= wpc;					// ret
                         else if (branch)
                             if (insth == OP_JMP)				// jmp
                                 pc <= { inst, lb4, lb4w, 2'b00 };
